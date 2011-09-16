@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.document.mongodb.index.CompoundIndex;
 import org.springframework.data.document.mongodb.index.CompoundIndexes;
 import org.springframework.data.document.mongodb.index.Indexed;
+import org.springframework.data.document.mongodb.mapping.DBRef;
 import org.springframework.data.document.mongodb.mapping.Document;
 
 @Document
@@ -27,6 +28,9 @@ public class AutoWithAnnotation extends Auto {
 	
 	@Transient
 	private String barva;
+	
+	@DBRef
+	private Volant volant;
 
 	@PersistenceConstructor
 	public AutoWithAnnotation(Integer datumVyroby, String znacka, String uri) {
@@ -75,9 +79,32 @@ public class AutoWithAnnotation extends Auto {
 		this.barva = barva;
 	}
 
+	public Volant getVolant() {
+		return volant;
+	}
+
+	public void setVolant(Volant volant) {
+		this.volant = volant;
+	}
+
 	@Override
 	public String toString() {
 		return "AutoWithAnnotation [uri=" + uri + ", spz=" + spz + ", motor="
 				+ motor + ", objem=" + objem + ", barva=" + barva + "]";
+	}
+}
+
+@Document(collection="volantik")
+class Volant {
+	@Indexed(unique=false)
+	private final String volant;
+
+	public Volant(String volant) {
+		super();
+		this.volant = volant;
+	}
+
+	public String getVolant() {
+		return volant;
 	}
 }
