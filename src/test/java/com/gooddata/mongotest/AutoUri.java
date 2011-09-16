@@ -1,7 +1,7 @@
 package com.gooddata.mongotest;
 
 public class AutoUri extends Auto {
-
+	
 	private final String uri;
 
 	public AutoUri(Integer datumVyroby, String znacka, String uri) {
